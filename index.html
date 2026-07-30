@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Geografi - Fase E</title>
+    <style>
+        /* Gaya Dasar & Tipografi */
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white; overflow: hidden;
+        }
+
+        /* Container Utama */
+        #app-container {
+            width: 100vw; height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            position: relative;
+        }
+
+        /* Tombol Fullscreen */
+        #fullscreen-btn {
+            position: absolute; top: 20px; right: 20px;
+            padding: 15px 20px; font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white; border: 2px solid white; border-radius: 10px;
+            cursor: pointer; z-index: 100; transition: 0.3s;
+        }
+        #fullscreen-btn:hover { background-color: white; color: #1e3c72; }
+
+        /* Layar 1: Halaman Depan */
+        #home-screen {
+            text-align: center; width: 80%; max-width: 800px;
+            background: rgba(0, 0, 0, 0.4); padding: 40px;
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: opacity 0.5s ease;
+        }
+        
+        .quote-box {
+            background: rgba(255, 215, 0, 0.2); border-left: 5px solid gold;
+            padding: 15px; margin-bottom: 30px; font-style: italic; font-size: 1.1em;
+        }
+
+        .input-group { margin: 20px 0; display: flex; flex-direction: column; gap: 15px; }
+        
+        input[type="text"] {
+            padding: 20px; font-size: 20px; border-radius: 10px; border: none;
+            text-align: center; width: 90%; margin: 0 auto;
+        }
+
+        .btn-mulai {
+            padding: 20px 40px; font-size: 24px; font-weight: bold;
+            background-color: #ff6b6b; color: white; border: none;
+            border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .btn-mulai:hover { background-color: #ff5252; transform: scale(1.05); }
+
+        /* Layar 2: Dashboard Menu */
+        #dashboard-screen {
+            display: none; text-align: center; width: 90%;
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+        
+        .menu-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+            margin-top: 30px;
+        }
+
+        .menu-card {
+            background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3);
+            padding: 30px; border-radius: 15px; cursor: pointer;
+            font-size: 22px; font-weight: bold; transition: 0.3s;
+        }
+        .menu-card:hover { background: rgba(255,255,255,0.3); transform: translateY(-10px); }
+        .menu-card.wide { grid-column: span 3; }
+        
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <button id="fullscreen-btn" onclick="toggleFullScreen()">⛶ Fullscreen</button>
+
+    <!-- Layar 1: Halaman Depan -->
+    <div id="home-screen">
+        <h1>🌍 PETUALANGAN GEOGRAFI</h1>
+        <h2>Memahami 10 Konsep Geografi & Penerapannya</h2>
+        
+        <div class="quote-box">
+            "Halo, Para Penjelajah Ruang! Geografi bukan sekadar menghafal peta, tapi cara kita memahami detak jantung dunia. Mari kita berpetualang!" <br><strong>- Moh Jazuli</strong>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="nama-siswa" placeholder="Masukkan Nama Lengkap Anda..." required>
+            <input type="text" id="asal-sekolah" placeholder="Masukkan Asal Sekolah..." required>
+        </div>
+
+        <button class="btn-mulai" onclick="mulaiPetualangan()">🚀 MULAI PETUALANGAN</button>
+    </div>
+
+    <!-- Layar 2: Dashboard Menu -->
+    <div id="dashboard-screen">
+        <h1 id="welcome-message">Selamat Datang, Penjelajah!</h1>
+        <p>Silakan pilih stasiun penjelajahanmu hari ini:</p>
+
+        <div class="menu-grid">
+            <div class="menu-card" onclick="alert('Masuk ke Tujuan & Panduan')">📖 1. Tujuan & Panduan</div>
+            <div class="menu-card" onclick="alert('Masuk ke Kapsul Pengetahuan')">🧠 2. Kapsul Pengetahuan</div>
+            <div class="menu-card" onclick="alert('Masuk ke Mode Game!')">🎮 3. Ayo Berpetualang!</div>
+            <div class="menu-card" onclick="alert('Masuk ke Proyek Akhir')">🛠️ 4. Asesmen Sumatif (Proyek)</div>
+            <div class="menu-card" onclick="alert('Masuk ke Soal Analisis')">🔥 5. Tantangan HOTS</div>
+            <div class="menu-card wide" onclick="kembaliKeHome()">⬅️ Kembali ke Halaman Utama</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Fungsi Fullscreen untuk Layar IFP
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                alert(`Gagal mengaktifkan mode fullscreen: ${err.message}`);
+            });
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+
+    // Fungsi Logika Mulai Aplikasi
+    function mulaiPetualangan() {
+        const nama = document.getElementById('nama-siswa').value;
+        const sekolah = document.getElementById('asal-sekolah').value;
+
+        if(nama.trim() === "" || sekolah.trim() === "") {
+            alert("Harap isi Nama dan Asal Sekolah terlebih dahulu untuk memulai petualangan!");
+            return;
+        }
+
+        // Transisi Layar
+        document.getElementById('home-screen').style.opacity = 0;
+        
+        setTimeout(() => {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('dashboard-screen').style.display = 'block';
+            
+            // Setel pesan selamat datang
+            document.getElementById('welcome-message').innerText = `Selamat Datang, ${nama} dari ${sekolah}!`;
+            
+            // Animasi fade in
+            setTimeout(() => {
+                document.getElementById('dashboard-screen').style.opacity = 1;
+            }, 50);
+        }, 500);
+    }
+
+    // Fungsi Kembali ke Home
+    function kembaliKeHome() {
+        document.getElementById('dashboard-screen').style.opacity = 0;
+        
+        setTimeout(() => {
+            document.getElementById('dashboard-screen').style.display = 'none';
+            document.getElementById('home-screen').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('home-screen').style.opacity = 1;
+            }, 50);
+        }, 500);
+    }
+</script>
+
+</body>
+</html>
